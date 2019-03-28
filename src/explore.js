@@ -38,21 +38,7 @@ class FileInput extends React.Component {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.fileInput = React.createRef();
-    this.uploadFlyer = this.uploadFlyer.bind(this);
   }
-
-  uploadFlyer(data) {
-	const GATEWAY_URL = ['https://n03f9idwte.execute-api.us-east-1.amazonaws.com/prod/upload-flyer'];
-	let req = new Request (GATEWAY_URL, {
-    	method: 'POST',
-    	headers: {},
-    	body: data
-    });
-	fetch(req)
-	.then(response => response.json())
-	.then(success => console.log(success))
-	.catch(error => console.log(error));
-}
 
   handleSubmit(event) {
     // highlight-range{4}
@@ -65,7 +51,7 @@ class FileInput extends React.Component {
     var data = new FormData();
     let file = this.fileInput.current.files[0];
     data.append('img', file, file.name);
-    this.uploadFlyer(data);
+    this.props.upload(data);
   }
 
   render() {
@@ -87,24 +73,46 @@ class ExploreView extends React.Component {
 		super(props);
 		this.state = { flyersToDisplay: [] };
 		this.getFlyers = this.getFlyers.bind(this);
+		this.uploadFlyer = this.uploadFlyer.bind(this);
 	}
 
 	getFlyers(boardName) {
-	 return fetch('https://n03f9idwte.execute-api.us-east-1.amazonaws.com/prod/get-flyer?board=Yale')
-	.then(response => response.json())
-	.then(body => body.map((obj) => obj.file_path));
-}
+		return fetch('https://n03f9idwte.execute-api.us-east-1.amazonaws.com/prod/get-flyer?board=Yale')
+		.then(response => response.json())
+		.then(body => body.map((obj) => obj.file_path));
+	}
+
+	uploadFlyer(data) {
+		// console.log(this.state.flyersToDisplay);
+		const GATEWAY_URL = ['https://n03f9idwte.execute-api.us-east-1.amazonaws.com/prod/upload-flyer'];
+		let req = new Request (GATEWAY_URL, {
+			method: 'POST',
+			headers: {},
+			body: data
+		});
+		fetch(req)
+		.then(response => response.json())
+		.then(json => this.setState((prevState) => {
+			var newFlyer = new Array(json.body.key);
+			return {flyersToDisplay: newFlyer.concat(prevState.flyersToDisplay)};
+		}))
+		.catch(error => console.log(error));
+	}
 
 	componentDidMount() {
-		this.getFlyers('Yale').then(
-		(flyers) => this.setState({flyersToDisplay: flyers}));
+		this.getFlyers('Yale')
+		.then((flyers) => this.setState({ flyersToDisplay: flyers}));
+	}
+
+	componentDidUpate() {
+		console.log(this.state.flyersToDisplay);
 	}
 	
 	render() {
 		const classes = this.props.classes;
 		return(
 			<React.Fragment>
-		    <FileInput />
+		    <FileInput upload={this.uploadFlyer}/>
 		    <div className={classNames(classes.layout, classes.cardGrid)}>
 		      <Grid container spacing={32}>
 		        {this.state.flyersToDisplay.map(flyerPath => (
