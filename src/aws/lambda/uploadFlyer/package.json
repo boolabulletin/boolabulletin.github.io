@@ -1,0 +1,6 @@
+{
+  "name": "uploadFlyer",
+  "dependencies": {
+    "busboy": "^0.3.0"
+  }
+}
