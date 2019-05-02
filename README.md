@@ -8,21 +8,21 @@ It is also the goal of this project to gain experience with industry-standard we
 A description of the files contained in this project.
 
 ### React App Base
-App.js - Definition of base React component, as well as theme overrides
-App.css - WebKit global override to modify scrollbar appearance
-index.js, index.css - Boilerplate, font installation
+App.js - Definition of base React component, as well as theme overrides  
+App.css - WebKit global override to modify scrollbar appearance  
+index.js, index.css - Boilerplate, font installation  
 
 ### User Interface Features
-navbar.js - The navigation bar at the top of the screen
-explore.js - The main grid of flyers
-flyer.js - Each flyer in the Explore Grid
-modal.js - The dialogue that appears when a flyer is clicked
-dialogTitle.js - Customized title on the dialogue
-upload.js - The dialogue form for uploading a new flyer
-petition.js - The full-screen modal containing text, followed by a form
-affiliationSelector.js - A selector component in the petition form
+navbar.js - The navigation bar at the top of the screen  
+explore.js - The main grid of flyers  
+flyer.js - Each flyer in the Explore Grid  
+modal.js - The dialogue that appears when a flyer is clicked  
+dialogTitle.js - Customized title on the dialogue  
+upload.js - The dialogue form for uploading a new flyer  
+petition.js - The full-screen modal containing text, followed by a form  
+affiliationSelector.js - A selector component in the petition form  
 
 ### Lambda Functions
-aws/lambda/getFlyers/index.js - GETs flyers
-aws/lambda/uploadFlyers/index.js - POSTs a flyer
-aws/lambda/signPetition/index.js - POSTs petition data
+aws/lambda/getFlyers/index.js - GETs flyers  
+aws/lambda/uploadFlyers/index.js - POSTs a flyer  
+aws/lambda/signPetition/index.js - POSTs petition data  
