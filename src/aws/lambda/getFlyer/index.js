@@ -1,3 +1,6 @@
+var AWS = require('aws-sdk');
+var dynamo = new AWS.DynamoDB.DocumentClient();
+
 exports.getFlyers = function(event, context, callback) {
   var params = {
     TableName: process.env.TABLE_NAME,
@@ -22,7 +25,7 @@ exports.getFlyers = function(event, context, callback) {
       // }
       return resolve(results);
     };
-    Dynamo.scan(params, onScan);
+    dynamo.scan(params, onScan);
   });
   dynamoScan
     .then((results) => {
@@ -39,3 +42,5 @@ exports.getFlyers = function(event, context, callback) {
       console.log(err);
     });
 };
+
+//YOOOO

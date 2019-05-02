@@ -1,21 +1,24 @@
 const Busboy = require('busboy');
+var AWS = require('aws-sdk');
+var dynamo = new AWS.DynamoDB.DocumentClient();
+var s3 = new AWS.S3();
 
 var result = {}; // Data pulled from received form
 const bucketName = "boola-bulletin-flyers"; // dynamically generate later
 
 function generateId(length, fileName) {
-	var text = "";
-	var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  var text = "";
+  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-	for (var i = 0; i < length; i++)
-		text += possible.charAt(Math.floor(Math.random() * possible.length));
-	console.log("Text: " + text);
-	console.log("File: " + fileName);
-	return text + "-" + fileName;
+  for (var i = 0; i < length; i++)
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  console.log("Text: " + text);
+  console.log("File: " + fileName);
+  return text + "-" + fileName;
 }
 
 const getContentType = (event) => {
-    const contentType = event.headers['content-type']
+    const contentType = event.headers['content-type'];
     if (!contentType) {
         return event.headers['Content-Type'];
     }
@@ -77,13 +80,24 @@ function uploadFlyer(event, context, callback) {
     .then(() => {
       // Handle successful upload
       var params = {
-		TableName: 'Flyers',
-		Item: {
-			board: 'Yale',
-			file_path: result.key
-		}
-	}
-	dynamo.put(params, context.done);
+        TableName: 'Flyers',
+        Item: {
+          board: 'Yale',
+          file_path: 'https://s3.amazonaws.com/boola-bulletin-flyers/' + result.key,
+          title: result.title,
+          start: result.start,
+          end: result.end,
+          location: result.location,
+          description: result.description
+    }
+  };
+  dynamo.put(params, function(err, data) {
+    if (err) {
+      console.log("Error", err);
+    } else {
+      console.log("Success", data);
+    }
+  });
       callback(null, {
         statusCode: '200',
         body: JSON.stringify(event),
@@ -106,5 +120,5 @@ function uploadFlyer(event, context, callback) {
 }
 
 exports.handler = (event, context, callback) => {
-	uploadFlyer(event, context, callback);
+  uploadFlyer(event, context, callback);
 };

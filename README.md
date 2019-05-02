@@ -1,68 +1,28 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Boola Bulletin
 
-## Available Scripts
+Bulletin boards are public displays that allow people to hang posters or flyers in order to advertise announcements, events, and various opportunities open to members of a community (e.g. schools, businesses, and other organizations). From Bulletin Board Systems that predated the Internet to social media platforms available today, numerous applications have tried to capture the essence of bulletin boards in a digital equivalent. Yet, none of these have been sufficient to replace them, offering platforms with some of the aesthetic and functional features of bulletin boards, but lacking the practicality and natural ease of use. This project aims to answer for these shortcomings by building a new application that offers a better online version of bulletin boards. Boola Bulletin is a web application that allows users to post flyers and informational material and to view this information without the clutter and inefficiency of physical boards and their social media descendants. Attention is paid to displaying this information in a manner that is simple and intuitive. The goal is to make information regarding real-world events and opportunities as accessible as possible to the people who can take advantage of them.
 
-In the project directory, you can run:
+It is also the goal of this project to gain experience with industry-standard web development technologies and practices. These include HTML, CSS, JS, React, and Amazon Web Services products, such as Lambda, API Gateway, CloudWatch, CloudFront, and Route53. I follow an agile development cycle and proceed through the steps of launching the application to the public and deploying new features.
 
-### `npm start`
+## Files
+A description of the files contained in this project.
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### React App Base
+App.js - Definition of base React component, as well as theme overrides
+App.css - WebKit global override to modify scrollbar appearance
+index.js, index.css - Boilerplate, font installation
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+### User Interface Features
+navbar.js - The navigation bar at the top of the screen
+explore.js - The main grid of flyers
+flyer.js - Each flyer in the Explore Grid
+modal.js - The dialogue that appears when a flyer is clicked
+dialogTitle.js - Customized title on the dialogue
+upload.js - The dialogue form for uploading a new flyer
+petition.js - The full-screen modal containing text, followed by a form
+affiliationSelector.js - A selector component in the petition form
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+### Lambda Functions
+aws/lambda/getFlyers/index.js - GETs flyers
+aws/lambda/uploadFlyers/index.js - POSTs a flyer
+aws/lambda/signPetition/index.js - POSTs petition data
