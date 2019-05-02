@@ -1,9 +1,0 @@
-{
-  "name": "uploadFlyer",
-  "dependencies": {
-    "busboy": "^0.3.0",
-    "moment": "^2.24.0",
-    "typeface-merriweather": "0.0.72",
-    "typeface-roboto": "0.0.54"
-  }
-}
